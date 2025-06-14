@@ -1,0 +1,86 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Company {
+  id        String   @id @default(cuid())
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  deals     Deal[]
+}
+
+model Deal {
+  id              String   @id @default(cuid())
+  pipedriveId     String   @unique
+  companyId       String
+  company         Company  @relation(fields: [companyId], references: [id])
+  stage           String
+  invoiceNumber   String?
+  kickoffDate     DateTime?
+  paymentMethod   String?
+  transactionLink String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  proposals       Proposal[]
+  deliverables    Deliverable[]
+}
+
+model Proposal {
+  id          String   @id @default(cuid())
+  dealId      String
+  deal        Deal     @relation(fields: [dealId], references: [id])
+  totalAmount Float
+  discount    Float?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  items       ProposalItem[]
+}
+
+model ProposalItem {
+  id          String   @id @default(cuid())
+  proposalId  String
+  proposal    Proposal @relation(fields: [proposalId], references: [id])
+  name        String
+  description String?
+  quantity    Int
+  unitPrice   Float
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Deliverable {
+  id            String   @id @default(cuid())
+  dealId        String
+  deal          Deal     @relation(fields: [dealId], references: [id])
+  name          String
+  description   String?
+  status        String   @default("pending") // pending, in_progress, completed
+  creatorId     String?
+  creator       Creator? @relation(fields: [creatorId], references: [id])
+  dueDate       DateTime?
+  deliveryLink  String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model Creator {
+  id            String        @id @default(cuid())
+  name          String
+  email         String        @unique
+  deliverables  Deliverable[]
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+}
