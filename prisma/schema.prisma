@@ -6,7 +6,6 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../src/generated/prisma"
 }
 
 datasource db {
@@ -15,72 +14,62 @@ datasource db {
 }
 
 model Company {
-  id        String   @id @default(cuid())
+  id        Int      @id @default(autoincrement())
   name      String
+  deals     Deal[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  deals     Deal[]
 }
 
 model Deal {
-  id              String   @id @default(cuid())
-  pipedriveId     String   @unique
-  companyId       String
-  company         Company  @relation(fields: [companyId], references: [id])
-  stage           String
-  invoiceNumber   String?
-  kickoffDate     DateTime?
-  paymentMethod   String?
-  transactionLink String?
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
-  proposals       Proposal[]
-  deliverables    Deliverable[]
+  id           Int       @id @default(autoincrement())
+  company      Company   @relation(fields: [companyId], references: [id])
+  companyId    Int
+  stage        String
+  proposals    Proposal[]
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
 }
 
 model Proposal {
-  id          String   @id @default(cuid())
-  dealId      String
-  deal        Deal     @relation(fields: [dealId], references: [id])
-  totalAmount Float
-  discount    Float?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  items       ProposalItem[]
+  id           Int            @id @default(autoincrement())
+  deal         Deal           @relation(fields: [dealId], references: [id])
+  dealId       Int
+  items        ProposalItem[]
+  totalAmount  Float
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
 }
 
 model ProposalItem {
-  id          String   @id @default(cuid())
-  proposalId  String
-  proposal    Proposal @relation(fields: [proposalId], references: [id])
-  name        String
-  description String?
+  id          Int        @id @default(autoincrement())
+  proposal    Proposal   @relation(fields: [proposalId], references: [id])
+  proposalId  Int
+  deliverable Deliverable @relation(fields: [deliverableId], references: [id])
+  deliverableId Int
   quantity    Int
-  unitPrice   Float
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  price       Float
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
 }
 
 model Deliverable {
-  id            String   @id @default(cuid())
-  dealId        String
-  deal          Deal     @relation(fields: [dealId], references: [id])
+  id            Int            @id @default(autoincrement())
   name          String
   description   String?
-  status        String   @default("pending") // pending, in_progress, completed
-  creatorId     String?
-  creator       Creator? @relation(fields: [creatorId], references: [id])
-  dueDate       DateTime?
-  deliveryLink  String?
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  basePrice     Float
+  creator       Creator?       @relation(fields: [creatorId], references: [id])
+  creatorId     Int?
+  proposalItems ProposalItem[]
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
 }
 
 model Creator {
-  id            String        @id @default(cuid())
-  name          String
-  email         String        @unique
-  deliverables  Deliverable[]
-  createdAt     DateTime      @default(now())
-  updatedAt     DateTime      @updatedAt
+  id           Int           @id @default(autoincrement())
+  name         String
+  email        String        @unique
+  deliverables Deliverable[]
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
 }
