@@ -272,6 +272,99 @@ export class PipedriveClient {
     }
   }
 
+  async getDeal(id: number): Promise<PipedriveResponse<Deal>> {
+    // Ensure field mapping is loaded
+    await this.initializeFieldMapping();
+    
+    const endpoint = `/deals/${id}`;
+    const params = new URLSearchParams({
+      api_token: this.apiToken
+    });
+    const url = `${this.baseUrl}${endpoint}?${params}`;
+    
+    console.log('🔍 Fetching single deal from Pipedrive...');
+    console.log('📡 Request URL:', `${this.baseUrl}${endpoint}?api_token=***`);
+    console.log('📊 Deal ID:', id);
+    
+    try {
+      console.log('⏳ Making request to Pipedrive API...');
+      const response = await fetch(url);
+      
+      console.log('📊 Response status:', response.status);
+      console.log('📊 Response status text:', response.statusText);
+      console.log('📊 Response headers:', Object.fromEntries(response.headers.entries()));
+      
+      const data = await response.json();
+      console.log('📦 Raw response structure:', {
+        success: data.success,
+        has_data: !!data.data,
+        data_type: data.data ? typeof data.data : 'none'
+      });
+      
+      if (!response.ok) {
+        console.error('❌ API request failed');
+        console.error('❌ Error data:', data);
+        
+        // Handle specific 404 case for non-existent deals
+        if (response.status === 404) {
+          throw new Error(`Deal with ID ${id} not found`);
+        }
+        
+        throw new Error(data.error || `HTTP ${response.status}: ${response.statusText}`);
+      }
+      
+      const deal = data.data;
+      
+      if (!deal) {
+        console.error('❌ No deal data returned');
+        throw new Error(`Deal with ID ${id} not found`);
+      }
+      
+      // Check if deal is deleted/archived
+      if (deal.deleted || deal.active === false || deal.status === 'deleted') {
+        console.warn('⚠️ Deal is deleted/archived:', {
+          id: deal.id,
+          title: deal.title,
+          deleted: deal.deleted,
+          active: deal.active,
+          status: deal.status
+        });
+        throw new Error(`Deal with ID ${id} is deleted or archived`);
+      }
+      
+      console.log('✅ Deal fetched successfully');
+      console.log('📈 Deal summary:', {
+        id: deal.id,
+        title: deal.title,
+        value: deal.value,
+        currency: deal.currency,
+        status: deal.status,
+        owner_name: deal.owner_name,
+        person_name: deal.person_name,
+        org_name: deal.org_name
+      });
+      
+      // Log detailed deal structure for debugging
+      console.log('🔍 Complete deal object structure:');
+      console.log(JSON.stringify(deal, null, 2));
+      
+      return {
+        success: true,
+        data: deal,
+        additional_data: data.additional_data
+      };
+    } catch (error) {
+      console.error('💥 Single deal fetching failed');
+      console.error('💥 Error details:', error);
+      
+      if (error instanceof TypeError && error.message.includes('fetch')) {
+        console.error('🌐 Network error - check internet connection');
+      }
+      
+      throw error;
+    }
+  }
+
   async getDealFields(): Promise<PipedriveResponse<any[]>> {
     const endpoint = '/dealFields';
     const params = new URLSearchParams({
