@@ -428,4 +428,130 @@ export class PipedriveClient {
       throw error;
     }
   }
+
+  async updateDeal(id: number, updates: Record<string, any>): Promise<PipedriveResponse<Deal>> {
+    // Ensure field mapping is loaded
+    await this.initializeFieldMapping();
+    
+    const endpoint = `/deals/${id}`;
+    const params = new URLSearchParams({
+      api_token: this.apiToken
+    });
+    const url = `${this.baseUrl}${endpoint}?${params}`;
+    
+    console.log('🔄 Updating deal in Pipedrive...');
+    console.log('📡 Request URL:', `${this.baseUrl}${endpoint}?api_token=***`);
+    console.log('📊 Deal ID:', id);
+    console.log('📝 Updates:', Object.keys(updates).length, 'fields to update');
+    
+    // Log the fields being updated (without sensitive values)
+    const updateSummary = Object.keys(updates).map(key => ({
+      field: key,
+      hasValue: updates[key] !== null && updates[key] !== undefined,
+      valueType: typeof updates[key]
+    }));
+    console.log('📝 Update summary:', updateSummary);
+    
+    try {
+      console.log('⏳ Making PATCH request to Pipedrive API...');
+      
+      // Prepare the request body
+      const requestBody = new URLSearchParams();
+      Object.keys(updates).forEach(key => {
+        const value = updates[key];
+        if (value !== null && value !== undefined) {
+          // Handle different value types
+          if (typeof value === 'object') {
+            requestBody.append(key, JSON.stringify(value));
+          } else {
+            requestBody.append(key, String(value));
+          }
+        } else {
+          // Explicitly set null/undefined values
+          requestBody.append(key, '');
+        }
+      });
+      
+      const response = await fetch(url, {
+        method: 'PUT', // Using PUT as per Pipedrive documentation
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: requestBody.toString()
+      });
+      
+      console.log('📊 Response status:', response.status);
+      console.log('📊 Response status text:', response.statusText);
+      console.log('📊 Response headers:', Object.fromEntries(response.headers.entries()));
+      
+      const data = await response.json();
+      console.log('📦 Raw response structure:', {
+        success: data.success,
+        has_data: !!data.data,
+        data_type: data.data ? typeof data.data : 'none'
+      });
+      
+      if (!response.ok) {
+        console.error('❌ API request failed');
+        console.error('❌ Error data:', data);
+        
+        // Handle specific error cases
+        if (response.status === 404) {
+          throw new Error(`Deal with ID ${id} not found`);
+        }
+        
+        if (response.status === 400) {
+          throw new Error(`Invalid update data: ${data.error || 'Bad request'}`);
+        }
+        
+        if (response.status === 403) {
+          throw new Error(`Permission denied: Cannot update deal ${id}`);
+        }
+        
+        throw new Error(data.error || `HTTP ${response.status}: ${response.statusText}`);
+      }
+      
+      const deal = data.data;
+      
+      if (!deal) {
+        console.error('❌ No deal data returned after update');
+        throw new Error(`Failed to update deal with ID ${id}`);
+      }
+      
+      console.log('✅ Deal updated successfully');
+      console.log('📈 Updated deal summary:', {
+        id: deal.id,
+        title: deal.title,
+        value: deal.value,
+        currency: deal.currency,
+        status: deal.status,
+        update_time: deal.update_time,
+        owner_name: deal.owner_name
+      });
+      
+      // Log which fields were actually updated
+      const updatedFields = Object.keys(updates).filter(key => {
+        const newValue = deal[key];
+        const sentValue = updates[key];
+        return newValue !== undefined; // Field exists in response
+      });
+      
+      console.log('✅ Fields confirmed updated:', updatedFields.length, 'of', Object.keys(updates).length);
+      
+      return {
+        success: true,
+        data: deal,
+        additional_data: data.additional_data
+      };
+    } catch (error) {
+      console.error('💥 Deal update failed');
+      console.error('💥 Error details:', error);
+      
+      if (error instanceof TypeError && error.message.includes('fetch')) {
+        console.error('🌐 Network error - check internet connection');
+      }
+      
+      throw error;
+    }
+  }
 } 
