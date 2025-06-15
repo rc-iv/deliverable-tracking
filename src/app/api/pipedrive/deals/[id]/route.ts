@@ -9,7 +9,7 @@ interface RouteParams {
 }
 
 export async function GET(request: Request, { params }: RouteParams) {
-  const dealId = params.id;
+  const dealId = (await params).id;
   
   console.log('🚀 API endpoint /api/pipedrive/deals/[id] called');
   console.log('📊 Deal ID:', dealId);
@@ -110,7 +110,7 @@ export async function GET(request: Request, { params }: RouteParams) {
 }
 
 export async function PUT(request: Request, { params }: RouteParams) {
-  const dealId = params.id;
+  const dealId = (await params).id;
   
   console.log('🔄 API endpoint /api/pipedrive/deals/[id] PUT called');
   console.log('📊 Deal ID:', dealId);
