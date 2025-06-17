@@ -17,6 +17,7 @@ model Company {
   id        Int      @id @default(autoincrement())
   name      String
   deals     Deal[]
+  quickBooksTokens QuickBooksToken[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -72,4 +73,17 @@ model Creator {
   deliverables Deliverable[]
   createdAt    DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
+}
+
+model QuickBooksToken {
+  id               Int      @id @default(autoincrement())
+  realmId          String   @unique
+  accessToken      String
+  refreshToken     String
+  expiresAt        DateTime
+  refreshExpiresAt DateTime
+  company          Company? @relation(fields: [companyId], references: [id])
+  companyId        Int?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
 }

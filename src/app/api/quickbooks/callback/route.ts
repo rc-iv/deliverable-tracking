@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { QuickBooksOAuth } from '@/lib/quickbooks/oauth';
+import { prisma } from '@/lib/prisma';
 
 export async function GET(request: NextRequest) {
   console.log('🔄 QuickBooks OAuth callback received');
@@ -75,16 +76,41 @@ export async function GET(request: NextRequest) {
       created_at: new Date(tokens.createdAt).toISOString()
     });
     
-    // TODO: Store tokens securely (database, encrypted storage, etc.)
-    // For now, we'll return them in the response for testing
-    // In production, you should:
-    // 1. Store tokens in a secure database
-    // 2. Associate with user session
-    // 3. Redirect to success page
+    // Store tokens securely in the database (upsert by realmId)
+    try {
+      const expiresAt = new Date(Date.now() + tokens.expires_in * 1000);
+      const refreshExpiresAt = new Date(Date.now() + tokens.x_refresh_token_expires_in * 1000);
+      await prisma.quickBooksToken.upsert({
+        where: { realmId: tokens.realmId },
+        update: {
+          accessToken: tokens.access_token,
+          refreshToken: tokens.refresh_token,
+          expiresAt,
+          refreshExpiresAt,
+        },
+        create: {
+          realmId: tokens.realmId,
+          accessToken: tokens.access_token,
+          refreshToken: tokens.refresh_token,
+          expiresAt,
+          refreshExpiresAt,
+        },
+      });
+      console.log('✅ Tokens stored securely in database for realmId:', tokens.realmId);
+    } catch (storageError) {
+      console.error('❌ Failed to store tokens in database:', storageError);
+      return NextResponse.json(
+        {
+          success: false,
+          error: 'Failed to store tokens securely',
+          message: storageError instanceof Error ? storageError.message : 'Unknown error',
+          timestamp: new Date().toISOString()
+        },
+        { status: 500 }
+      );
+    }
     
-    console.log('⚠️ TODO: Implement secure token storage');
-    
-    // Return success response with token info (excluding sensitive data)
+    // Remove sensitive tokens from response
     return NextResponse.json(
       {
         success: true,
@@ -96,11 +122,6 @@ export async function GET(request: NextRequest) {
           refresh_expires_in: tokens.x_refresh_token_expires_in,
           created_at: new Date(tokens.createdAt).toISOString(),
           state
-        },
-        // TODO: Remove in production - only for testing
-        tokens: {
-          access_token: tokens.access_token.substring(0, 20) + '...',
-          refresh_token: tokens.refresh_token.substring(0, 20) + '...'
         },
         timestamp: new Date().toISOString()
       },

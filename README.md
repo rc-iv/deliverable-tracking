@@ -13,7 +13,7 @@ A web-based dashboard for managing media deliverables, integrating with Pipedriv
 
 1. **Clone the repository**
    ```bash
-   git clone [repository-url]
+   git clone https://github.com/rc-iv/deliverable-tracking.git
    cd deliverable-tracking
    ```
 
@@ -48,21 +48,28 @@ The application will be available at `http://localhost:3000`.
 
 ## Development Workflow
 
-1. Create a new branch for your feature
-   ```bash
-   git checkout -b feature/your-feature-name
-   ```
+### Branch Naming Convention
+- Feature branches: `feature/description-of-feature`
+- Bug fixes: `fix/description-of-fix`
+- Documentation: `docs/description-of-docs`
+- Refactoring: `refactor/description-of-refactor`
 
-2. Make your changes and commit them
-   ```bash
-   git add .
-   git commit -m "Description of your changes"
-   ```
+### Pull Request Process
+1. Create a new branch following the naming convention
+2. Make your changes
+3. Write clear commit messages
+4. Push your branch
+5. Create a pull request
+6. Request review from at least one team member
+7. Address any review comments
+8. Merge only after approval
 
-3. Push your changes and create a pull request
-   ```bash
-   git push origin feature/your-feature-name
-   ```
+### Code Review Guidelines
+- Review for functionality and correctness
+- Check for proper error handling
+- Verify TypeScript types are correct
+- Ensure tests are included for new features
+- Check for proper documentation
 
 ## Project Structure
 

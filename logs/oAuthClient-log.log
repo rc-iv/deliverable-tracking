@@ -7,3 +7,65 @@
 2025-06-15T17:52:18.983Z info: The Authorize Uri is :https://appcenter.intuit.com/connect/oauth2?client_id=ABvsRBkEa6k0gACQiTOL9RuF3YCE5pULHKJtxwhQYarzaFSQ2S&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fapi%2Fquickbooks%2Fcallback&response_type=code&scope=com.intuit.quickbooks.accounting&state=test-1750009938982
 2025-06-15T17:52:20.107Z info: The Authorize Uri is :https://appcenter.intuit.com/connect/oauth2?client_id=ABvsRBkEa6k0gACQiTOL9RuF3YCE5pULHKJtxwhQYarzaFSQ2S&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fapi%2Fquickbooks%2Fcallback&response_type=code&scope=com.intuit.quickbooks.accounting&state=qb-auth-1750009940106
 2025-06-15T17:52:20.377Z info: The Authorize Uri is :https://appcenter.intuit.com/connect/oauth2?client_id=ABvsRBkEa6k0gACQiTOL9RuF3YCE5pULHKJtxwhQYarzaFSQ2S&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fapi%2Fquickbooks%2Fcallback&response_type=code&scope=com.intuit.quickbooks.accounting&state=qb-auth-1750009940376
+2025-06-17T15:40:05.274Z info: The Authorize Uri is :https://appcenter.intuit.com/connect/oauth2?client_id=ABvsRBkEa6k0gACQiTOL9RuF3YCE5pULHKJtxwhQYarzaFSQ2S&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fapi%2Fquickbooks%2Fcallback&response_type=code&scope=com.intuit.quickbooks.accounting&state=test-1750174805273
+2025-06-17T15:40:51.207Z info: The Authorize Uri is :https://appcenter.intuit.com/connect/oauth2?client_id=ABvsRBkEa6k0gACQiTOL9RuF3YCE5pULHKJtxwhQYarzaFSQ2S&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fapi%2Fquickbooks%2Fcallback&response_type=code&scope=com.intuit.quickbooks.accounting&state=qb-auth-1750174851207
+2025-06-17T15:40:59.647Z info: The Authorize Uri is :https://appcenter.intuit.com/connect/oauth2?client_id=ABvsRBkEa6k0gACQiTOL9RuF3YCE5pULHKJtxwhQYarzaFSQ2S&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fapi%2Fquickbooks%2Fcallback&response_type=code&scope=com.intuit.quickbooks.accounting&state=test-1750174859647
+2025-06-17T15:41:01.568Z info: The Authorize Uri is :https://appcenter.intuit.com/connect/oauth2?client_id=ABvsRBkEa6k0gACQiTOL9RuF3YCE5pULHKJtxwhQYarzaFSQ2S&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fapi%2Fquickbooks%2Fcallback&response_type=code&scope=com.intuit.quickbooks.accounting&state=test-1750174861568
+2025-06-17T15:41:03.895Z info: The Authorize Uri is :https://appcenter.intuit.com/connect/oauth2?client_id=ABvsRBkEa6k0gACQiTOL9RuF3YCE5pULHKJtxwhQYarzaFSQ2S&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fapi%2Fquickbooks%2Fcallback&response_type=code&scope=com.intuit.quickbooks.accounting&state=qb-auth-1750174863894
+2025-06-17T15:45:34.432Z info: The Authorize Uri is :https://appcenter.intuit.com/connect/oauth2?client_id=ABvsRBkEa6k0gACQiTOL9RuF3YCE5pULHKJtxwhQYarzaFSQ2S&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fapi%2Fquickbooks%2Fcallback&response_type=code&scope=com.intuit.quickbooks.accounting&state=qb-auth-1750175134431
+2025-06-17T15:45:54.428Z info: The Authorize Uri is :https://appcenter.intuit.com/connect/oauth2?client_id=ABvsRBkEa6k0gACQiTOL9RuF3YCE5pULHKJtxwhQYarzaFSQ2S&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fapi%2Fquickbooks%2Fcallback&response_type=code&scope=com.intuit.quickbooks.accounting&state=qb-auth-1750175154425
+2025-06-17T15:58:36.274Z info: The Authorize Uri is :https://appcenter.intuit.com/connect/oauth2?client_id=ABvsRBkEa6k0gACQiTOL9RuF3YCE5pULHKJtxwhQYarzaFSQ2S&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fapi%2Fquickbooks%2Fcallback&response_type=code&scope=com.intuit.quickbooks.accounting&state=qb-auth-1750175916272
+2025-06-17T16:01:28.022Z info: The Authorize Uri is :https://appcenter.intuit.com/connect/oauth2?client_id=ABvsRBkEa6k0gACQiTOL9RuF3YCE5pULHKJtxwhQYarzaFSQ2S&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fapi%2Fquickbooks%2Fcallback&response_type=code&scope=com.intuit.quickbooks.accounting&state=qb-auth-1750176088022
+2025-06-17T16:01:28.933Z info: The Authorize Uri is :https://appcenter.intuit.com/connect/oauth2?client_id=ABvsRBkEa6k0gACQiTOL9RuF3YCE5pULHKJtxwhQYarzaFSQ2S&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fapi%2Fquickbooks%2Fcallback&response_type=code&scope=com.intuit.quickbooks.accounting&state=qb-auth-1750176088932
+2025-06-17T16:01:38.960Z info: Create Token response is : {
+  "expires_in": 3600,
+  "token_type": "bearer",
+  "access_token": "eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwieC5vcmciOiJIMCJ9..Q69j9SctyZqRwkxH2G0XRA.K49wWnaJKFmtR8PO0U5JyCMxmvkQlHT4Dxmf179VutDZu4PTuHgHzqsC7V9n44eX6yJiUsmCdMox3J_1hM7rSalpJO1K9xzrqXMxhu6g_zyCorbSB3yUEX7hjxtWESP_HbyQghg-hoUsPHrmZBUjdznswtx8YGTMekYMJusHX3A1WJoyGq6TRHcm-bYyi8nFUHJrSqBiBdjaIVPTvVR6UREba3mlyeqJZgqFoKlElpyH_zuK5inm8dYobKZC_sbzaMO3ixSjtzmqu7F0AZTm2Yk-VgjmVLj8-HyfLp0X_HCOEd-WAYzPadygu_MuGeBpDBAMZ4DL21POr6moYqu0-GskUnGb2CFMZ-Qazyc3BYU7t0csi6-GoaAgr5-FlCzoQB0RX1Ff6He-VB2mGQWekQ-gAXPHbGywdQjbfWD3fNhl1Dz-DtcErV9yde6HjrViwIzzpwnmGA4inzoeobzo14wOULGEKpxvIFb-P3BiJsM.Nb-s-vWL-KpYZ7BxJPFCyg",
+  "x_refresh_token_expires_in": 8726400,
+  "refresh_token": "RT1-50-H0-1758902499cz1q2pvvrvvmwz78sht0"
+}
+2025-06-17T16:39:20.926Z info: The Authorize Uri is :https://appcenter.intuit.com/connect/oauth2?client_id=ABvsRBkEa6k0gACQiTOL9RuF3YCE5pULHKJtxwhQYarzaFSQ2S&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fapi%2Fquickbooks%2Fcallback&response_type=code&scope=com.intuit.quickbooks.accounting&state=qb-auth-1750178360926
+2025-06-17T16:39:22.162Z info: The Authorize Uri is :https://appcenter.intuit.com/connect/oauth2?client_id=ABvsRBkEa6k0gACQiTOL9RuF3YCE5pULHKJtxwhQYarzaFSQ2S&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fapi%2Fquickbooks%2Fcallback&response_type=code&scope=com.intuit.quickbooks.accounting&state=qb-auth-1750178362161
+2025-06-17T16:39:28.285Z info: Create Token response is : {
+  "expires_in": 3600,
+  "access_token": "eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwieC5vcmciOiJIMCJ9.._HjYm_yhGHq6_Qg3ESMQZw.t-ECq_mTy2zZVtPBal7kmZKG497x7TPuntvkQAfPICS6FkOHndcFjisgsiuwBXEnRZz2RdbepNbuzUQNIw5hRNU1Wbgkjr4tUGWeV7jexQz7w6V2F0Rw393rwchn8t5knsZuDqYY1vf5EQx9k9LQlNyu6gCc8-yYVYGujKIuC4nwgi4jk9dSjH30SsXxd7v_47VokBerXrwbFVQB-XWmxEahisltFSyn5ksIUJAoMfJ8Cf6UOszHDBWoqMTpLZA8b7_fqv8dpcAGjLF62JAkzeYNrCsOiNPWgOadVVd1X9_eEJaFxrH5UV0qn2qKl9BuglA8dwnSQ3SHt5jYzKINVxgEsDKqw_iJF3B01zvttjjRbg3wb9J-Z4uon5OFbS_UyjVolNi7qMbsiR0btw0hojYZJ-0qCDK6CaThrsv86CqX3GaB0iBTaAnzbWstpLrdQGdD0TKgTkzXcD9IgOcWtUMb5BrNH3lnGmxLUuoAxg8.yE4WxA24ZivMh_cpRBcw-w",
+  "refresh_token": "RT1-16-H0-1758904769kusa7q76w184l6dtszpr",
+  "x_refresh_token_expires_in": 8726400,
+  "token_type": "bearer"
+}
+2025-06-17T16:43:18.099Z info: The Authorize Uri is :https://appcenter.intuit.com/connect/oauth2?client_id=ABvsRBkEa6k0gACQiTOL9RuF3YCE5pULHKJtxwhQYarzaFSQ2S&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fapi%2Fquickbooks%2Fcallback&response_type=code&scope=com.intuit.quickbooks.accounting&state=qb-auth-1750178598097
+2025-06-17T16:43:22.609Z info: Create Token response is : {
+  "expires_in": 3600,
+  "x_refresh_token_expires_in": 8726400,
+  "refresh_token": "RT1-253-H0-1758905003bb38ie4tf9b06ppcclm5",
+  "access_token": "eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwieC5vcmciOiJIMCJ9..tXS20b2kP7H4_CixCJBedg.cEix8tKClzwImzMlIy_lHMG-jw42c2UE038qKRhQtkmcKqqdCC1Xru4ZvUVrXFgQO24FBXofxKeD4zgcxkyVRxw-u5QfAo2K8hUZIiGkt2sQihfRuIBDOsGpg9v7ZxM-01xzDZnJA7r9RPYJnrMOu2kZ8qQfQP-jHK1u8rjXuuD4h1f_VE0bfKv_ltZnNm-UJpZCdxfxph_Bg4PHc4SnXdaqJsOACkRUOMrOg2thw6LaqsbK8XIXgG82coag6l28PSsMHWmrcYbf5h6an2ibYKy48vC0jqU8oVGhjNN4a8DaHCtfSK_0FmNwMJ9r4qAwuOmNmS6QaCzMcvijmFRPL-gVWVv2NUe40Tlsy42XD363sRRpu8QpYPgSCPFQjdLHWuQ4Bts7gRjUCqjv6G_ZZmyMBs5E9OheOvbjxxTdQ_WHDZUHznlyppcM0SzMrKTRleE9hAeSc2vtWMc6nySiss9R6dOzRYY0koNMP1e3chc.zwTQcTgrOVQJ08FIBAVnhQ",
+  "token_type": "bearer"
+}
+2025-06-17T17:21:11.069Z info: Refresh usingToken () response is : {
+  "expires_in": 3600,
+  "access_token": "eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwieC5vcmciOiJIMCJ9..LHZRnPzqk8xYvdCfBbfpLQ.norkLo933MvNfN_pE4O8edopwxTQ4NB4LNOSO95bN02gz0l0glw0A7p7ft9IcsbsEaqtpTnWyGYa5zlpAbMBavs1tcy-bh0CRkURyH1n4XSDDMMy_9tBSfurqXhrQoHg5gx9ju3x9nyJ9A1TS4bolUYnp9yTNlFMC_X3Mes9awzEP3XV_iauZknXDpkM0hio4NOy7m1ViqNBaCtwKkAgXddyCje3O3ia7HLEWmBP9Uz5Zd-iDMdZ-adenzjaGQjavPyAJ3aaEsc-TqTmtQx-zR0H7l9JHdHDMNrbVgCnIPlzPcQowRIpLxu2w6AJi-J_ynDE6DE59vywo-4nELVdCYgEXBzlyVKUZm4rhW0C06R_nyh7cFDYCekwe2-QyG_0p3Jmdo4Jr0k-tmBgWgc0T9IYLPQELNdZzv54For_zrugMZVCMjp0djA59xNyU8N8uYspE8RY4zIjRDYnEnv9PWwm58YTPsl3z-Wu48gHMQU.qYNsn2D3I70csOmDCpAbIg",
+  "refresh_token": "RT1-253-H0-1758905003bb38ie4tf9b06ppcclm5",
+  "x_refresh_token_expires_in": 8724132,
+  "token_type": "bearer"
+}
+2025-06-17T19:39:48.021Z info: Refresh usingToken () response is : {
+  "expires_in": 3600,
+  "token_type": "bearer",
+  "access_token": "eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwieC5vcmciOiJIMCJ9..980-cti-xJ6svGO_eCHPBQ.CO7IQT46SD5yCcQBuOSu8txb6MhWr-vfaGvqVKmdiVL6e3JBgZLoc9P0ndg7iqIxszPquzGljtzgZCYzm4jYI9vf4e02XflwwVS192z308fMq1reFGgC1xs4aZNRqUwhll0achFAgxqERhE_hkMJQvFEf_xIiUGJut3k094iLG9F3WkAZ5PR6VYAF5ACcK-m9bj7w-eD47FUE2aZjaHU9uDAAn9LDS0QjH7_EQuNeax8Q7cjhIYvCdFC0B1pZu-S5PlOLZZSPsAxx9cfJXidNIRa8KoRtJyKgnAAQhBkGWNq2IbVds7Lq9TDjGMk2-5nvXo99nlaxnNyTb71eA0E7VeaWZj1aZOie8113hjojJFZyl4RV2LyReVp82B63YKFm647yi0_LS1r6JrVmbjLqcJGFNqrAm8Lk4pVyVxHrGzI1Uh_i07Qg1bY3SO5YN5LTdvDa1u89lSb56xAge-nOy1j9m4ViPQfvyGsRd9sLts.P3dAr9qat8nvmL09TB1Ryw",
+  "refresh_token": "RT1-253-H0-1758905003bb38ie4tf9b06ppcclm5",
+  "x_refresh_token_expires_in": 8715815
+}
+2025-06-17T19:39:48.025Z info: Refresh usingToken () response is : {
+  "expires_in": 3600,
+  "x_refresh_token_expires_in": 8715815,
+  "refresh_token": "RT1-253-H0-1758905003bb38ie4tf9b06ppcclm5",
+  "access_token": "eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwieC5vcmciOiJIMCJ9..kNVnU6dEeve_XgC6bKcuKA.arX3BWrAFpCmDPaXWnJMDiIVKeFpayOi1kfFEAWRGPkdBbCxjxlG9se4H-KmezShLUS3fuX25_h4RSK_xTSYp8EPJtyK5u4BPPph2QL-8CtG6KPbHex_i7Oh3bhANIuz-2n00cO1YEcjAhAtaF3f6-flBfFU4JqDZOG0Je_lu0-AJMSx2zsrJNH9dZ9gTBQmjVPGuOFAQiJXIzHwxXI-WiFayk1z64ta7g6p2kgYgBrwoegH17dURZQrg3IwGrIHX_kQijcR0uoEwhAOYOlbhrVILV9k61ZyEs35XhtwICWeR9Pvf3EgETWZGoGogrQr4f27NnbAQ7CfEsTN2NlYvWhonB1VW8MzkTj3lkFaAbBhrCewj4YzHl-qa_aQpAJGcT8fzzUSFwS1Gbz0FXX0DKHtYXbC3nG2bvGVzSdS2qGwjVikP7qGVgKRlhrBHg72H2_OLW8uA67P9Dxo8-yRi79a80nMt9SZpvuwdDgvLaQ.WTbzDieVjOZTtMJD6fhr_Q",
+  "token_type": "bearer"
+}
+2025-06-17T19:39:48.026Z info: Refresh usingToken () response is : {
+  "expires_in": 3600,
+  "refresh_token": "RT1-253-H0-1758905003bb38ie4tf9b06ppcclm5",
+  "access_token": "eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwieC5vcmciOiJIMCJ9..QLf_TdQ3uh-5XJ_k2Gct8Q.MCr-Itk3EN4oAWeM28_o-XCcPi90s5UoR-7dJoyZTThU03-fWwv-ZCJw2eonKncbMUDSHQkrVtYpA2E3Q0I2hESQIVdGEFYVvCJ_FNRztkUDTRbtBLn1odOqdg_6j6VBE_kxbqKiyiZLGIZmCchqkWXLWtBNuhZw5Y893qWNtmCFwy9sJxu-e3QzM9aaaup_yBYXBobYBJWTaHU7Mv-bpjsUiAWxsXnRRGPX531j7MsalhPykxABgKbEifnEFYNtWA7VsmgtbIKNIg-fcu8CgR2c7ASmGWeUgVssh6fs0MjOKwBcu_7mgDb0ysnjnPBvRCAu9ADrGP4plUPOE6t9Xaf3LAuhFVRhs_BpLIQ7oXgDcOlAwS57Dz2s-sdNfuBceE1yrqp9q6x4-nu3jU_cRmVE51GHuU-ehZXOBjP_uByIGPDj7XJkVaOz01u293jRAG2EECMcrngQH6ihfDd56Payziv0vlrs_YuYxHPDiDE.NHn-3_hjVTyMJ2luCWK8bQ",
+  "token_type": "bearer",
+  "x_refresh_token_expires_in": 8715815
+}

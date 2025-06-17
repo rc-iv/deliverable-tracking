@@ -1,5 +1,6 @@
 import OAuthClient from 'intuit-oauth';
 import { QuickBooksTokens, QuickBooksAuthResponse, QuickBooksConfig } from './types';
+import { prisma } from '@/lib/prisma';
 
 export class QuickBooksOAuth {
   private oauthClient: OAuthClient;
@@ -68,12 +69,11 @@ export class QuickBooksOAuth {
   async exchangeCodeForTokens(authorizationCode: string, realmId: string): Promise<QuickBooksTokens> {
     console.log('🔄 Exchanging authorization code for tokens...');
     console.log('📋 Realm ID:', realmId);
-    
     try {
-      const authResponse: QuickBooksAuthResponse = await this.oauthClient.createToken(
+      // The intuit-oauth library does not return createdAt, so use 'any' and manually add it
+      const authResponse: any = await this.oauthClient.createToken(
         `?code=${authorizationCode}&realmId=${realmId}`
       );
-      
       console.log('✅ Tokens received successfully');
       console.log('📊 Token info:', {
         token_type: authResponse.token.token_type,
@@ -81,14 +81,12 @@ export class QuickBooksOAuth {
         realmId: authResponse.token.realmId,
         intuit_tid: authResponse.intuit_tid
       });
-      
       // Add creation timestamp for token expiry tracking
       const tokens: QuickBooksTokens = {
         ...authResponse.token,
         realmId,
         createdAt: Date.now()
       };
-      
       return tokens;
     } catch (error) {
       console.error('❌ Failed to exchange authorization code for tokens');
@@ -102,23 +100,20 @@ export class QuickBooksOAuth {
    */
   async refreshTokens(refreshToken: string): Promise<QuickBooksTokens> {
     console.log('🔄 Refreshing QuickBooks access token...');
-    
     try {
-      const authResponse: QuickBooksAuthResponse = await this.oauthClient.refreshUsingToken(refreshToken);
-      
+      // The intuit-oauth library does not return createdAt, so use 'any' and manually add it
+      const authResponse: any = await this.oauthClient.refreshUsingToken(refreshToken);
       console.log('✅ Tokens refreshed successfully');
       console.log('📊 New token info:', {
         token_type: authResponse.token.token_type,
         expires_in: authResponse.token.expires_in,
         intuit_tid: authResponse.intuit_tid
       });
-      
       // Add creation timestamp for token expiry tracking
       const tokens: QuickBooksTokens = {
         ...authResponse.token,
-        createdAt: Date.now()
+        createdAt: Date.now(),
       };
-      
       return tokens;
     } catch (error) {
       console.error('❌ Failed to refresh tokens');
@@ -198,4 +193,42 @@ export class QuickBooksOAuth {
       scope: this.config.scope
     };
   }
+}
+
+/**
+ * Utility: Perform a QuickBooks API call with automatic token refresh
+ * @param realmId - The QuickBooks company realmId
+ * @param apiCall - A function that takes a valid access token and returns a Promise<any>
+ * @returns The result of the API call
+ */
+export async function withQuickBooksAuth<T>(realmId: string, apiCall: (accessToken: string, realmId: string) => Promise<T>) {
+  // Get the token record from the database
+  let tokenRecord = await prisma.quickBooksToken.findUnique({ where: { realmId } });
+  if (!tokenRecord) throw new Error('No QuickBooks token found for this realmId');
+
+  const oauth = new QuickBooksOAuth();
+  let accessToken = tokenRecord.accessToken;
+  const now = new Date();
+  if (tokenRecord.expiresAt <= now) {
+    // Token expired, refresh it
+    console.log('🔄 Access token expired, refreshing...');
+    const refreshed = await oauth.refreshTokens(tokenRecord.refreshToken);
+    // Update DB
+    const expiresAt = new Date(Date.now() + refreshed.expires_in * 1000);
+    const refreshExpiresAt = new Date(Date.now() + refreshed.x_refresh_token_expires_in * 1000);
+    await prisma.quickBooksToken.update({
+      where: { realmId },
+      data: {
+        accessToken: refreshed.access_token,
+        refreshToken: refreshed.refresh_token,
+        expiresAt,
+        refreshExpiresAt,
+        updatedAt: new Date(),
+      },
+    });
+    accessToken = refreshed.access_token;
+    console.log('✅ Token refreshed and updated in DB');
+  }
+  // Perform the API call with a valid access token
+  return apiCall(accessToken, realmId);
 } 
