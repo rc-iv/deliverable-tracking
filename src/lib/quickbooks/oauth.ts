@@ -1,0 +1,201 @@
+import OAuthClient from 'intuit-oauth';
+import { QuickBooksTokens, QuickBooksAuthResponse, QuickBooksConfig } from './types';
+
+export class QuickBooksOAuth {
+  private oauthClient: OAuthClient;
+  private config: QuickBooksConfig;
+
+  constructor() {
+    console.log('🔧 Initializing QuickBooks OAuth client...');
+    
+    // Load configuration from environment variables
+    this.config = this.loadConfig();
+    
+    // Initialize the OAuth client
+    this.oauthClient = new OAuthClient({
+      clientId: this.config.clientId,
+      clientSecret: this.config.clientSecret,
+      environment: this.config.environment,
+      redirectUri: this.config.redirectUri,
+      logging: process.env.NODE_ENV === 'development'
+    });
+    
+    console.log('✅ QuickBooks OAuth client initialized');
+    console.log('🔧 Environment:', this.config.environment);
+    console.log('🔧 Redirect URI:', this.config.redirectUri);
+  }
+
+  private loadConfig(): QuickBooksConfig {
+    const clientId = process.env.QUICKBOOKS_CLIENT_ID;
+    const clientSecret = process.env.QUICKBOOKS_CLIENT_SECRET;
+    const redirectUri = process.env.QUICKBOOKS_REDIRECT_URI || 'http://localhost:3000/api/quickbooks/callback';
+    const environment = (process.env.QUICKBOOKS_ENVIRONMENT as 'sandbox' | 'production') || 'sandbox';
+
+    if (!clientId || !clientSecret) {
+      console.error('❌ QuickBooks OAuth credentials not found in environment variables');
+      throw new Error('QUICKBOOKS_CLIENT_ID and QUICKBOOKS_CLIENT_SECRET environment variables are required');
+    }
+
+    return {
+      clientId,
+      clientSecret,
+      redirectUri,
+      environment,
+      scope: ['com.intuit.quickbooks.accounting']
+    };
+  }
+
+  /**
+   * Generate the authorization URL for QuickBooks OAuth flow
+   */
+  getAuthorizationUrl(state?: string): string {
+    console.log('🔗 Generating QuickBooks authorization URL...');
+    
+    const authUri = this.oauthClient.authorizeUri({
+      scope: this.config.scope,
+      state: state || 'quickbooks-auth'
+    });
+    
+    console.log('✅ Authorization URL generated');
+    console.log('🔗 Auth URL:', authUri);
+    
+    return authUri;
+  }
+
+  /**
+   * Exchange authorization code for access tokens
+   */
+  async exchangeCodeForTokens(authorizationCode: string, realmId: string): Promise<QuickBooksTokens> {
+    console.log('🔄 Exchanging authorization code for tokens...');
+    console.log('📋 Realm ID:', realmId);
+    
+    try {
+      const authResponse: QuickBooksAuthResponse = await this.oauthClient.createToken(
+        `?code=${authorizationCode}&realmId=${realmId}`
+      );
+      
+      console.log('✅ Tokens received successfully');
+      console.log('📊 Token info:', {
+        token_type: authResponse.token.token_type,
+        expires_in: authResponse.token.expires_in,
+        realmId: authResponse.token.realmId,
+        intuit_tid: authResponse.intuit_tid
+      });
+      
+      // Add creation timestamp for token expiry tracking
+      const tokens: QuickBooksTokens = {
+        ...authResponse.token,
+        realmId,
+        createdAt: Date.now()
+      };
+      
+      return tokens;
+    } catch (error) {
+      console.error('❌ Failed to exchange authorization code for tokens');
+      console.error('❌ Error details:', error);
+      throw new Error(`OAuth token exchange failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    }
+  }
+
+  /**
+   * Refresh access token using refresh token
+   */
+  async refreshTokens(refreshToken: string): Promise<QuickBooksTokens> {
+    console.log('🔄 Refreshing QuickBooks access token...');
+    
+    try {
+      const authResponse: QuickBooksAuthResponse = await this.oauthClient.refreshUsingToken(refreshToken);
+      
+      console.log('✅ Tokens refreshed successfully');
+      console.log('📊 New token info:', {
+        token_type: authResponse.token.token_type,
+        expires_in: authResponse.token.expires_in,
+        intuit_tid: authResponse.intuit_tid
+      });
+      
+      // Add creation timestamp for token expiry tracking
+      const tokens: QuickBooksTokens = {
+        ...authResponse.token,
+        createdAt: Date.now()
+      };
+      
+      return tokens;
+    } catch (error) {
+      console.error('❌ Failed to refresh tokens');
+      console.error('❌ Error details:', error);
+      throw new Error(`Token refresh failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    }
+  }
+
+  /**
+   * Revoke access token
+   */
+  async revokeTokens(tokens: QuickBooksTokens): Promise<void> {
+    console.log('🗑️ Revoking QuickBooks tokens...');
+    
+    try {
+      await this.oauthClient.revoke({
+        access_token: tokens.access_token,
+        refresh_token: tokens.refresh_token
+      });
+      
+      console.log('✅ Tokens revoked successfully');
+    } catch (error) {
+      console.error('❌ Failed to revoke tokens');
+      console.error('❌ Error details:', error);
+      throw new Error(`Token revocation failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    }
+  }
+
+  /**
+   * Check if access token is valid (not expired)
+   */
+  isTokenValid(tokens: QuickBooksTokens): boolean {
+    const now = Date.now();
+    const tokenAge = now - tokens.createdAt;
+    const expiryTime = tokens.expires_in * 1000; // Convert seconds to milliseconds
+    
+    const isValid = tokenAge < expiryTime;
+    
+    console.log('🔍 Token validity check:', {
+      created_at: new Date(tokens.createdAt).toISOString(),
+      age_minutes: Math.floor(tokenAge / (1000 * 60)),
+      expires_in_minutes: Math.floor(expiryTime / (1000 * 60)),
+      is_valid: isValid
+    });
+    
+    return isValid;
+  }
+
+  /**
+   * Check if refresh token is valid (not expired)
+   */
+  isRefreshTokenValid(tokens: QuickBooksTokens): boolean {
+    const now = Date.now();
+    const tokenAge = now - tokens.createdAt;
+    const refreshExpiryTime = tokens.x_refresh_token_expires_in * 1000; // Convert seconds to milliseconds
+    
+    const isValid = tokenAge < refreshExpiryTime;
+    
+    console.log('🔍 Refresh token validity check:', {
+      created_at: new Date(tokens.createdAt).toISOString(),
+      age_days: Math.floor(tokenAge / (1000 * 60 * 60 * 24)),
+      expires_in_days: Math.floor(refreshExpiryTime / (1000 * 60 * 60 * 24)),
+      is_valid: isValid
+    });
+    
+    return isValid;
+  }
+
+  /**
+   * Get configuration for debugging
+   */
+  getConfig(): Omit<QuickBooksConfig, 'clientSecret'> {
+    return {
+      clientId: this.config.clientId,
+      redirectUri: this.config.redirectUri,
+      environment: this.config.environment,
+      scope: this.config.scope
+    };
+  }
+} 
