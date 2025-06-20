@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { Deal } from '@/lib/pipedrive/types';
 import { EditableField, FieldValidation } from './EditableField';
+import { InvoiceLinkingSection } from './InvoiceLinkingSection';
 
 interface FormattedCustomField {
   key: string;
@@ -606,6 +607,9 @@ export function DealDetailView({ deal, onRefresh, onEdit, onSave }: DealDetailVi
           <Field label="Weighted Value" value={deal.weighted_value} type="currency" currency={deal.currency} />
         </dl>
       </CollapsibleSection>
+
+      {/* Invoice Linking Section */}
+      <InvoiceLinkingSection deal={deal} />
 
       {/* Timeline Information */}
       <CollapsibleSection 
