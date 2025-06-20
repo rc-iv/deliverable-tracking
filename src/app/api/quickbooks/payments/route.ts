@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { withQuickBooksAuth } from '@/lib/quickbooks/oauth';
+import { buildQuickBooksApiUrl } from '@/lib/quickbooks/config';
 
 export async function GET(request: NextRequest) {
   try {
@@ -10,26 +11,50 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ success: false, error: 'No QuickBooks token found in database.' }, { status: 400 });
     }
     const { realmId } = tokenRecord;
+
+    // Get the ID from the query parameters if it exists
     const { searchParams } = new URL(request.url);
     const id = searchParams.get('id');
+
     // Use the utility to handle token refresh and API call
-    const result = await withQuickBooksAuth(realmId, async (accessToken, realmId) => {
-      const url = id
-        ? `https://sandbox-quickbooks.api.intuit.com/v3/company/${realmId}/query?query=select * from Payment where Id = '${id}'`
-        : `https://sandbox-quickbooks.api.intuit.com/v3/company/${realmId}/query?query=select * from Payment`;
-      const res = await fetch(url, {
+    const result = await withQuickBooksAuth(realmId, async (accessToken) => {
+      console.log('🔍 Fetching QuickBooks payments...');
+      const url = id 
+        ? buildQuickBooksApiUrl(`/query?query=select * from Payment where Id = '${id}'`, realmId)
+        : buildQuickBooksApiUrl(`/query?query=select * from Payment`, realmId);
+      
+      console.log('📡 API URL:', url);
+      
+      const response = await fetch(url, {
         headers: {
-          Authorization: `Bearer ${accessToken}`,
-          Accept: 'application/json',
-          'Content-Type': 'application/text',
-        },
+          'Authorization': `Bearer ${accessToken}`,
+          'Accept': 'application/json'
+        }
       });
-      if (!res.ok) throw new Error('Failed to fetch payments');
-      const data = await res.json();
-      return data.QueryResponse.Payment || [];
+
+      if (!response.ok) {
+        throw new Error(`QuickBooks API error: ${response.status} ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      console.log('📦 Raw QuickBooks API Response:', JSON.stringify(data, null, 2));
+
+      return data;
     });
-    return NextResponse.json({ success: true, payments: result });
-  } catch (error: any) {
-    return NextResponse.json({ success: false, error: error.message || 'Unknown error' }, { status: 500 });
+
+    // Format the response
+    const response = {
+      success: true,
+      payments: id ? result.QueryResponse?.Payment || [] : result.QueryResponse?.Payment || [],
+      raw: result // Include raw response for debugging
+    };
+
+    return NextResponse.json(response);
+  } catch (error) {
+    console.error('❌ Error fetching QuickBooks payments:', error);
+    return NextResponse.json(
+      { success: false, error: error instanceof Error ? error.message : 'Unknown error occurred' },
+      { status: 500 }
+    );
   }
 } 

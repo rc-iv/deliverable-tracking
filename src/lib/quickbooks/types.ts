@@ -79,6 +79,7 @@ export interface QuickBooksInvoice {
     Type: string;
     StringValue?: string;
   }>;
+  sparse?: boolean;
 }
 
 export interface QuickBooksInvoiceLine {

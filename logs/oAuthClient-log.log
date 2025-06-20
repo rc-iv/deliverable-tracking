@@ -69,3 +69,89 @@
   "token_type": "bearer",
   "x_refresh_token_expires_in": 8715815
 }
+2025-06-18T11:40:04.438Z info: Refresh usingToken () response is : {
+  "expires_in": 3600,
+  "access_token": "eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwieC5vcmciOiJIMCJ9..wDzyZVxtH5pDorZydXlSAQ.l8pxkuRghWfFkpZBvuYMo67MzSg_GzReIj80kf1qHuBXOf97Fd2TCqfYmKqroQO_sucCikUk56L6ftOtnjrbj7LVgQENXy7x5MVIRNPkgnfWFSNvkn_ELc0v4DJRdwDUGC12NFyZIZ7to5ZuCp6mUpiqi1aqbUeb3evw0vfn_4cf89d19Ew7I36BJnVm9QAAYgV0NqBol4uITFchbljetMgOfogtPXUAK_eo5ujMhXnJ9i_EB-imk9rSOps7tq7NMaMBUk1nqgdxd-otSvOzeFWKjUYDYEczH6tPDREjN4VBggoT38UXcUEk0t1pmA622nL1RZ693BKTy87bG_YNS0psDU0h9z3n2e3CErRWO0481oJoT4G_Q-J-RAiIbHJTyu9wmNrvBrJSsKvhceNGKzdWdlqCcPnBD2PDdXrVDhvj1joikSHithcSnfLHr4zC8TQsXw5la0ruYEIuq9ZNsAsKc0zBAgu4JPRByLkv5fk.XLJsc5qJk4bLcrGBx4gfSA",
+  "token_type": "bearer",
+  "refresh_token": "RT1-253-H0-1758905003bb38ie4tf9b06ppcclm5",
+  "x_refresh_token_expires_in": 8658198
+}
+2025-06-18T17:51:16.406Z info: Refresh usingToken () response is : {
+  "expires_in": 3600,
+  "token_type": "bearer",
+  "access_token": "eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwieC5vcmciOiJIMCJ9..YMaUi94wtXJq0r64mLxqlQ.1wvLP-0ibwGXSxvgqmMEhKQb4xs20RB0D_KdzrSQG727FriOGDN7bJ4eSzHwOY9D059lEh6wpUHbvh1z8hExQptV0dIB3jj4G0HrHm-hzjvSqsh8TwovhG_Ylezqs4GUQ6x5GbW-NUUO9Onlb4bTIPIbmt0LUM-tgEMqYzZsWw8VsbR5j2imKTOu3HRKztT2nK3f071vhiFf2ZT1bggd0rbFPTsjzgSbeOp7LhT524xqZtnVgHWM5qTty0xHeRi_igXOwTZoztrdOfYs5D4XSkhbFN1POOOXymbR7Hk9tRTuAdwDGIqbVIn2E4zXKg6BLjjN_pQpZ2fuWUK7CHS67NCoYynn8sRqb3UatJgGkub_qas9sdjcLSUZ_zf3Sm_mr3jDMWYDA24ElWsHQSnwG-Ko5ePqw8YVf1yuhraZZe6cgJfKXKpTjS4oOPCeh5pPWoI2lLP1_-Uy2DZsIbrb0MXTXE4OAg1XfOv2A0rlXiI.9ucTx14WbT8td9rNdQ-5Xw",
+  "x_refresh_token_expires_in": 8726399,
+  "refresh_token": "RT1-187-H0-17589954773zf5czz5g7l8ixvm8950"
+}
+2025-06-18T17:51:16.410Z info: Refresh usingToken () response is : {
+  "expires_in": 3600,
+  "token_type": "bearer",
+  "x_refresh_token_expires_in": 8726399,
+  "refresh_token": "RT1-220-H0-175899547745a1pwmg5t5lqhlr8tpm",
+  "access_token": "eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwieC5vcmciOiJIMCJ9..1xZHOqm4HmgGVGkNUz5Hrw.rCXs0nbIg5WaAiKyhxaZGVSZTMxhR3z9xpZpRmisZWb0jCBxR9WqISh_Kqcpv9rkV7WBSAujPlBtaI2leuM5vqWXGhHxbWyROcmjKVOtSK6AqSu-GqbcK1lPDZm_UwvFwmwn2PQRgv59GBwai9IAqjfocxEmlB-mJy5PTJaoqeIXQPPya-BduTvreBY6XUEGBFuO4GfQ8oGyz5HzipFHuDm6jDwTosowMoBW3mN9q6qjlJD9MSu7KJ5O9qcvVGXC9SfUJOD5VeHNnOhwCSVUiDob_OFrC3fA6PcPeB9K71w-E0jxhz0CDVu9Mp-b8-IPA8Z1GVF60RdwMG9P4cCn7W8OW4mOit43KoqL0KHRQSpCBVnnLD9eAEW0zmHwMvRI1v_NtoGvcg8SHH7xhjkPAhO1VkK_buYoK33Cuy5EInXh075qRVN19U0caDwb_Aems12WJhWflY2uWh1y9wg8TKBws4lyqvzEvIk_Dvo53B8.-bVVS1ddXe_rI5K1YOMPww"
+}
+2025-06-18T17:59:42.859Z info: The Authorize Uri is :https://appcenter.intuit.com/connect/oauth2?client_id=ABvsRBkEa6k0gACQiTOL9RuF3YCE5pULHKJtxwhQYarzaFSQ2S&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fapi%2Fquickbooks%2Fcallback&response_type=code&scope=com.intuit.quickbooks.accounting&state=qb-auth-1750269582858
+2025-06-19T16:10:27.902Z info: Refresh usingToken () response is : {
+  "access_token": "eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwieC5vcmciOiJIMCJ9..vTAHQ4B5HBcrmArlH6E-SQ.NHdehx6y4y2igJZJqH5gSiaVS-FrVc2WFjBiWmljVOeXv7Rw6XAuVPVzFgTVXAlp9hXzT6myxNQ_eIWK65TkBfNz8dd6XPd6DE18a3adqYvM9Nc-p940Tbs8v_DWNYIuepfZZqT04Vl1EFtQjcsEJXmwWPyflkv3HYiWRhpCle60rFkRkNl2eEJKZlMuh0UBTmEYdi0mKb5y4WLSg-8jiLrIzmvKeP0LPot4nLXRmfzpLUd9XYve2rGwABqi4KJ5H0brSeTCTRh0dv3VnEHTIJbXiwW_ZWbJtaVIbnRU6aEvIPpXuPXTwpKXl2Twk8dW69OixnG5JmGyBc34rEXqIRk2jh3LcN8er8A8iw-wQqFENVP4BW7pRlcldNBMJKyC9p8xAy-ntswgvJgMZqBCasn9cHf5Hwox_d_U-CfYA0VsSKUXa-fn1Gg0qCQQD-Lkm-zHcBc8E9i_6cGeSAfidzVzJLTcImPvEcu_KC5R2LU.P1ie6gSV3qaclkWeyrRrTA",
+  "token_type": "bearer",
+  "refresh_token": "RT1-220-H0-175899547745a1pwmg5t5lqhlr8tpm",
+  "x_refresh_token_expires_in": 8646049,
+  "expires_in": 3600
+}
+2025-06-19T16:10:27.905Z info: Refresh usingToken () response is : {
+  "expires_in": 3600,
+  "access_token": "eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwieC5vcmciOiJIMCJ9..XG0ukcg1mCaO6957TpiuDQ.523E7kBh5JzbjLE9KY-pnVyQ5pG2Ske3E8Fk4Zz8EjiCG3uJwHTkrS7qU28KRzipKAV3xloWS1ALCadr7b_ZvU9_QmUzauiGa4rXRarrCsFTEmrvTZed0qW_3iAQPUKdnl_xS0-1T4lgAo2qtoAZqRSYpZg6o9vHYog3iVF0fZwLr6DkQo6AdCxoEWl_F2_8Qc93Oc2gPUXg36JUgCuKTF6__n0FBMPuRnZYG_TFfTNe3AvhcMn-0LOTk2D0wUymwQTIZDtSKXGAzEemrkTedLRDnAvSkKS1Q5mflN3ujDxYQR2oGzcmT8RZueQt7QIhML5B4l2NziS3qTNc-6NF3ZL2qV6F_hCk6JFfT1fGH-Lfa8dS69cFKCFRY5IEvquDP3HMed2l7Yr4CBGBiIuVfbndfVtHBFcrA8dDJkM_4C6ByghWaYj9edoW-7xvS7TbJqrtzAr8MB2Wg0fk1fwh4W9iGLzGbu773USods2Pn5Q.mdDDNtm-00J0R00dWcIMNw",
+  "refresh_token": "RT1-220-H0-175899547745a1pwmg5t5lqhlr8tpm",
+  "x_refresh_token_expires_in": 8646049,
+  "token_type": "bearer"
+}
+2025-06-19T16:10:27.922Z info: Refresh usingToken () response is : {
+  "expires_in": 3600,
+  "x_refresh_token_expires_in": 8646049,
+  "refresh_token": "RT1-220-H0-175899547745a1pwmg5t5lqhlr8tpm",
+  "access_token": "eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwieC5vcmciOiJIMCJ9..LPBl_1OkSAg66WQlheIPPA.Iavy7nWx9nLP_2WOMLS9J7ep01nwRSKgAhZxaAl4KXfZHe_J_3prt0QztIN8FEM0iiK88bcvUh1QZHvrxqMHpR8nwGgsT2xnydVuKPOB9EuiK9Lk4XGuSeRdJVwlMzMDetDC8SBduSy-ECu6CZNP3IMYnKV2VwZz8ADY2anxuzuKVA5t21XxHNhaYP7a_yl2DPGlGKL8BONT1xbTLoiWUXat4EAn2hYJnTSgxOVe5xtlHXFEFDF0qdhr6BB1EMb8vao9nRm4uFMdavvFk2C5jAgXpGXtCWpl3VWkMpHz_V3VTPCOvws8n0bzHIIMNkGRBkfEMjCJ7-Xcg59640lYU11Bq_csXzqlhHh81LSNlHF-_8LR0aktW6-WidBnvQywG-ii2cFlXYHJDdHhRd6gt-tYpwFAAPwiMnZYoECAgK2CeSup88N6uUzENgsc0ZmUJRl0bAq6JQtSLMNCzAF6yB11v8d_VGTFNcb9va944gk.z0hy7nqSw5CUL89d9jp-Cw",
+  "token_type": "bearer"
+}
+2025-06-19T17:19:00.318Z info: Refresh usingToken () response is : {
+  "expires_in": 3600,
+  "x_refresh_token_expires_in": 8641936,
+  "refresh_token": "RT1-220-H0-175899547745a1pwmg5t5lqhlr8tpm",
+  "access_token": "eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwieC5vcmciOiJIMCJ9..LZY-jUeKCcweHKN6GgTSWA.rUpqQo8DTW2gbRZdXegCQfOFq_6V3r07cX7ky5hRvpzDsOd01YrPXBIarM0DqmqCxMZccI2w7k9VP6qF3GyUTSlTSl2V-SFBRnp5bxhgCDx08DCyohMeMuORhS4fOF3swlbIJ-uE1pwjnsPGSplTJ4RLJpmtF3vT1om09CjQPz1xXGeQiZx22WSUlAprssKdqWTRjCO0-x5EHqQFj7xEsRiGobOkS-jrAX6EgR-CCCoiFsOVZ3wmLshE5KtWGWItfNDlBI_5oB5blV3IE8FwR9-1is-oHxhDZIzicdZovHKvn7_f4E485zQRkV94LTuLwaLzi3uS__Vt1vlpz4cpgBpS-RoSdW1P-0aMQvJCarxcY3rg6SbegSdODTCHHaQZO66nxnJ7lmOACFGgXEC_QKTi9ABb4EGAL6yLncr1imnZLz69k4ja-wLKEPRlDLngfi-Y4bieYWHTSu0xrgSv7KrxicUyHEpvYK2y0Aoygx4.bhKi1hmKG2r1yygGyluNXg",
+  "token_type": "bearer"
+}
+2025-06-19T17:19:00.320Z info: Refresh usingToken () response is : {
+  "expires_in": 3600,
+  "x_refresh_token_expires_in": 8641936,
+  "refresh_token": "RT1-220-H0-175899547745a1pwmg5t5lqhlr8tpm",
+  "access_token": "eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwieC5vcmciOiJIMCJ9..M-Qb1eX--bKlcDVl4W_b-w.Dbdls1HQ6pAgwAGZ4mpTBJChbiTUDq6fjCLpfpSiW76in1blh9hnkQtG08hssBeUt9WQb8aBsIjiTnu0XDvLL8ubCKtdPctBsQ5ABezevsLjh-VCWg38m0fIAUD-Wvh92BAvfXPQTIwvzzisnjd2_kkHFo_38kSeQR3HyoBDX3M62rtRoI84J08p4DNBKthoOiyH_kQftK-_WveZXw3ijccTTMXTyLvKd7ExQ50gw-FRCxyGF7r7dKe6PL1kwR4_jETPsmfFxvyTY7ogFOT_hl7cnB4oOuVAtzjjCGgszXQQtrqxoEfRHGpChPDKxPrE6J_WxYIH9QYWxIrVQuB86iIFID9_XtT5nh2zD2j9Lix-szFaFe98-R9DEwzfkhXtzyp7rYPFTzdeU7lLbQ06lrflooBaaX4YMIDJT22WDygCRhNsay42IS-GvrsbRcChEyVM6ilIKj6Zw6FRe5YwtK9pMdUZh_h8DYJioD0dIO4.dOI1UdMgy22NfpDA8HuySw",
+  "token_type": "bearer"
+}
+2025-06-19T17:19:00.325Z info: Refresh usingToken () response is : {
+  "expires_in": 3600,
+  "x_refresh_token_expires_in": 8641936,
+  "refresh_token": "RT1-220-H0-175899547745a1pwmg5t5lqhlr8tpm",
+  "access_token": "eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwieC5vcmciOiJIMCJ9..1Wi50BYfGSGOOBZKBwF05A.-xiHfUtHhC9BWxFaOcWkiF8yFM-8MlWWymopBNvhwltsPySdDwnkjlQwxrhE4fkSKBU200L01Uocdxen62u6IBjb2sAkyDjj7SXGswhY5IL998rh_vzI8UJc4-gs1g4Y0p2V9DD0AVCNc_PVWUQakmwbpe7qeElNNSL9F2ASSmRt2043mwgAQVAAINiEs_Eo0XB5tvQYZBf8hgABxGUGvB91SixajukO9-5CNwnxUJYH6hch4gWUbBsUoiIz5jga3P2OkKi-pKE3Fw7FPP75qvyCY6qU5_oBLyTIYcer5f9PG7tajIcJy_2Tf-pxnS4OwZ2-yDSsvcqG1YuCMeFnoXe_RA4QqaTyg7k-0uk3a-c2McLVORNeUXiO_fPwuzl-ST7nPDC7tN2jwtFA6CqpLNoQq47sq50Gi1bnKe0BpjRWdhT58ntnMCHhq-iT12XQzXuyKm6idzJSHl0fe3X93HkILJ63Cq9asE09HbwQeZ4.0a5aDaLYxmKk64zMPAy4BQ",
+  "token_type": "bearer"
+}
+2025-06-19T18:19:18.959Z info: Refresh usingToken () response is : {
+  "expires_in": 3600,
+  "access_token": "eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwieC5vcmciOiJIMCJ9..kzlf-yxVlMaIH08TXl3IDQ.pZzlRBOGS1wt8Hl_pW08UHeKQ1g67ZaOnWKyWcYM8lorcG1y480mcHc2UK8ZVQhfJCMkd64yd2p9GNn2Tdpb9HuqUE2Za33HGD2HHjaoYA7FpIHoAJc5uBpp0yMo9bdevr0qVkSHCaqL5aSldXn-NgIOYdb1WJd37pXZ6AON4TVjKqe96Sax9-DPvLJXa085mdGZCHe8RgO1tsoVlMJbNQ92p0AXvnh4jAGgqqnBY2uMJGi1QZi-M2i1oOgpNFEz7Nf8R6exqWyOeYfAgFzd8D-YCyzQ28r6gFcC7xaO1J-cFfHJauCRN3S2wNQZHAZJkvtFVvXvyC3FElNMmTOtVQuOxNcnfJw8wgtQlkqxXCGQmrXAPItQ6-hviQEU0I1yhqllmkbtgzWf8v2ezOpNJy-s9-sqd-GYaHeaFuVoKPH7-pEJOk6j9EwDNoSB6E8eL17EPOLZkn6fmzE9OCnE3JnLUum0chDWudxllC3Xcro.QfyWuWNFVDui6vocjhgR_A",
+  "refresh_token": "RT1-66-H0-1759083559nygj3jdm6tjiksrnxwvw",
+  "x_refresh_token_expires_in": 8726400,
+  "token_type": "bearer"
+}
+2025-06-19T18:21:45.430Z info: The Authorize Uri is :https://appcenter.intuit.com/connect/oauth2?client_id=ABvsRBkEa6k0gACQiTOL9RuF3YCE5pULHKJtxwhQYarzaFSQ2S&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fapi%2Fquickbooks%2Fcallback&response_type=code&scope=com.intuit.quickbooks.accounting&state=qb-auth-1750357305429
+2025-06-20T16:15:06.881Z info: The Authorize Uri is :https://appcenter.intuit.com/connect/oauth2?client_id=ABzUPpUeKqJXKFmZz9WPaQtUTiA3Eni6MB0vgA351YINP33lI8&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fapi%2Fquickbooks%2Fcallback&response_type=code&scope=com.intuit.quickbooks.accounting&state=qb-auth-1750436106879
+2025-06-20T16:16:57.509Z info: The Authorize Uri is :https://appcenter.intuit.com/connect/oauth2?client_id=ABzUPpUeKqJXKFmZz9WPaQtUTiA3Eni6MB0vgA351YINP33lI8&redirect_uri=https%3A%2F%2Fdeveloper.intuit.com%2Fv2%2FOAuth2Playground%2FRedirectUrl&response_type=code&scope=com.intuit.quickbooks.accounting&state=qb-auth-1750436217507
+2025-06-20T16:16:57.666Z info: The Authorize Uri is :https://appcenter.intuit.com/connect/oauth2?client_id=ABzUPpUeKqJXKFmZz9WPaQtUTiA3Eni6MB0vgA351YINP33lI8&redirect_uri=https%3A%2F%2Fdeveloper.intuit.com%2Fv2%2FOAuth2Playground%2FRedirectUrl&response_type=code&scope=com.intuit.quickbooks.accounting&state=qb-auth-1750436217666
+2025-06-20T16:28:04.334Z info: The Authorize Uri is :https://appcenter.intuit.com/connect/oauth2?client_id=ABzUPpUeKqJXKFmZz9WPaQtUTiA3Eni6MB0vgA351YINP33lI8&redirect_uri=https%3A%2F%2Fdeliverable-tracking.ngrok.io&response_type=code&scope=com.intuit.quickbooks.accounting&state=qb-auth-1750436884332
+2025-06-20T16:28:04.490Z info: The Authorize Uri is :https://appcenter.intuit.com/connect/oauth2?client_id=ABzUPpUeKqJXKFmZz9WPaQtUTiA3Eni6MB0vgA351YINP33lI8&redirect_uri=https%3A%2F%2Fdeliverable-tracking.ngrok.io&response_type=code&scope=com.intuit.quickbooks.accounting&state=qb-auth-1750436884490
+2025-06-20T16:30:36.435Z info: The Authorize Uri is :https://appcenter.intuit.com/connect/oauth2?client_id=ABzUPpUeKqJXKFmZz9WPaQtUTiA3Eni6MB0vgA351YINP33lI8&redirect_uri=https%3A%2F%2Fdeliverable-tracking.ngrok.io%2Fapi%2Fquickbooks%2Fcallback&response_type=code&scope=com.intuit.quickbooks.accounting&state=qb-auth-1750437036433
+2025-06-20T16:30:36.585Z info: The Authorize Uri is :https://appcenter.intuit.com/connect/oauth2?client_id=ABzUPpUeKqJXKFmZz9WPaQtUTiA3Eni6MB0vgA351YINP33lI8&redirect_uri=https%3A%2F%2Fdeliverable-tracking.ngrok.io%2Fapi%2Fquickbooks%2Fcallback&response_type=code&scope=com.intuit.quickbooks.accounting&state=qb-auth-1750437036584
+2025-06-20T16:30:40.878Z info: Create Token response is : {
+  "expires_in": 3600,
+  "token_type": "bearer",
+  "access_token": "eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwieC5vcmciOiJIMCJ9..5-WQeFbNDo957dYKZwNT4g.sZgLV8XrkLpOxxLU_3_oxFThInChvTT83fWHmbrWH7oFz7orIbmyGkYjC7T2roX9vsacUMnibfVri4vw6_5n3tklP_JF9NxvxghgNZ4SS4v6IF9znIFOEoU2mBKFmsqh6SBpJXxjTO7zf-LC-RDgm-GQe0rAUkRpVkLlYqjSA3aBpqgCdFOa9mItQ94txWYjuQ1pPz7sJhhYSuUVQ1WdkfaPMyWIewihcGAUAZuLUDtunHnmX-Dc7HYLxxtuPDbuPcMYDDIJx2TfAanas_y8RuY74zo8QdHl4dAEs4C5cZZOXQ_L1BjHg4TYWM3dKwJje_-DdbtbbGhBgTpkNFSTj-30rbvFM6Rxp_-M_TXF8F81knjvrOPL7BxZGeGWUb4aMVRughJr8O7ZudcRbo_bDhjCx4i6OTjWWuQ14CyPTDMh9j9RLtD17Nldwbz2QmwRV1dYZIPJ2DPlwUFyPxhXkmwUXkvBVvxj-UxNA7agCeo.wsugydESrlV1sFxiqCb4pQ",
+  "refresh_token": "RT1-58-H0-1759163441ygr5ovysdc0yvce643ht",
+  "x_refresh_token_expires_in": 8726400
+}

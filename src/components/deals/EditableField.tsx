@@ -176,9 +176,9 @@ export function EditableField({
     }
 
     const baseInputClasses = `
-      w-full px-3 py-2 border rounded-lg text-sm transition-colors
+      w-full px-3 py-2 border rounded-lg text-base text-gray-900 bg-white transition-colors
       ${error ? 'border-red-300 focus:border-red-500 focus:ring-red-500' : 'border-gray-300 focus:border-blue-500 focus:ring-blue-500'}
-      focus:outline-none focus:ring-1
+      focus:outline-none focus:ring-2
     `;
 
     switch (type) {
@@ -199,7 +199,7 @@ export function EditableField({
         return (
           <div className="relative">
             {type === 'currency' && (
-              <span className="absolute left-3 top-2 text-gray-500 text-sm">
+              <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-base">
                 {currency === 'USD' ? '$' : currency}
               </span>
             )}

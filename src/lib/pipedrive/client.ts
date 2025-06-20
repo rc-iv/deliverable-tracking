@@ -150,7 +150,7 @@ export class PipedriveClient {
       
       // Filter out archived/deleted deals - never show these
       const filteredDeals = rawDeals.filter((deal: any) => {
-        const isNotDeleted = !deal.deleted && deal.active !== false;
+        const isNotDeleted = !deal.deleted;
         const isNotArchived = deal.status !== 'deleted';
         return isNotDeleted && isNotArchived;
       });
@@ -244,13 +244,12 @@ export class PipedriveClient {
       }
       
       // Log any archived deals that were filtered out
-      const archivedDeals = rawDeals.filter((deal: any) => deal.deleted || deal.active === false || deal.status === 'deleted');
+      const archivedDeals = rawDeals.filter((deal: any) => deal.deleted || deal.status === 'deleted');
       if (archivedDeals.length > 0) {
         console.log('🗑️ Filtered out archived deals:', archivedDeals.map((deal: any) => ({
           id: deal.id,
           title: deal.title,
           deleted: deal.deleted,
-          active: deal.active,
           status: deal.status
         })));
       }
@@ -321,12 +320,11 @@ export class PipedriveClient {
       }
       
       // Check if deal is deleted/archived
-      if (deal.deleted || deal.active === false || deal.status === 'deleted') {
+      if (deal.deleted || deal.status === 'deleted') {
         console.warn('⚠️ Deal is deleted/archived:', {
           id: deal.id,
           title: deal.title,
           deleted: deal.deleted,
-          active: deal.active,
           status: deal.status
         });
         throw new Error(`Deal with ID ${id} is deleted or archived`);

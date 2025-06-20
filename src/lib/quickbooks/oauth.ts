@@ -1,6 +1,7 @@
 import OAuthClient from 'intuit-oauth';
 import { QuickBooksTokens, QuickBooksAuthResponse, QuickBooksConfig } from './types';
 import { prisma } from '@/lib/prisma';
+import { getQuickBooksEnvironment, getQuickBooksConfigInfo } from './config';
 
 export class QuickBooksOAuth {
   private oauthClient: OAuthClient;
@@ -11,6 +12,10 @@ export class QuickBooksOAuth {
     
     // Load configuration from environment variables
     this.config = this.loadConfig();
+    
+    // Log configuration info for debugging
+    const configInfo = getQuickBooksConfigInfo();
+    console.log('🔧 QuickBooks Configuration:', configInfo);
     
     // Initialize the OAuth client
     this.oauthClient = new OAuthClient({
@@ -30,7 +35,7 @@ export class QuickBooksOAuth {
     const clientId = process.env.QUICKBOOKS_CLIENT_ID;
     const clientSecret = process.env.QUICKBOOKS_CLIENT_SECRET;
     const redirectUri = process.env.QUICKBOOKS_REDIRECT_URI || 'http://localhost:3000/api/quickbooks/callback';
-    const environment = (process.env.QUICKBOOKS_ENVIRONMENT as 'sandbox' | 'production') || 'sandbox';
+    const environment = getQuickBooksEnvironment();
 
     if (!clientId || !clientSecret) {
       console.error('❌ QuickBooks OAuth credentials not found in environment variables');
