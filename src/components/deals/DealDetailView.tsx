@@ -609,7 +609,7 @@ export function DealDetailView({ deal, onRefresh, onEdit, onSave }: DealDetailVi
       </CollapsibleSection>
 
       {/* Invoice Linking Section */}
-      <InvoiceLinkingSection deal={deal} />
+      <InvoiceLinkingSection deal={deal} onRefresh={onRefresh} />
 
       {/* Timeline Information */}
       <CollapsibleSection 

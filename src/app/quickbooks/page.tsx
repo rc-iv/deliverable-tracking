@@ -45,11 +45,34 @@ export default function QuickBooksDashboard() {
   const [payments, setPayments] = useState<Payment[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [isConnected, setIsConnected] = useState(false);
 
   useEffect(() => {
-    async function fetchAll() {
+    async function checkConnection() {
       setLoading(true);
       setError(null);
+      try {
+        // First, check if we have a valid token by trying to fetch customers
+        const response = await fetch('/api/quickbooks/customers');
+        const data = await response.json();
+        
+        if (data.success) {
+          setIsConnected(true);
+          // If connected, fetch all data
+          await fetchAll();
+        } else {
+          setIsConnected(false);
+          setError('Not connected to QuickBooks');
+        }
+      } catch (err: any) {
+        setIsConnected(false);
+        setError('Not connected to QuickBooks');
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    async function fetchAll() {
       try {
         const [custRes, invRes, payRes] = await Promise.all([
           fetch('/api/quickbooks/customers'),
@@ -67,19 +90,39 @@ export default function QuickBooksDashboard() {
         setPayments(payData.payments);
       } catch (err: any) {
         setError(err.message || 'Unknown error');
-      } finally {
-        setLoading(false);
       }
     }
-    fetchAll();
+
+    checkConnection();
   }, []);
+
+  const handleConnect = () => {
+    // Redirect to the OAuth flow
+    window.location.href = '/api/quickbooks/auth';
+  };
 
   return (
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-6xl mx-auto px-4">
         <h1 className="text-3xl font-bold text-gray-900 mb-8">QuickBooks Dashboard</h1>
+        
         {loading ? (
           <div className="text-center text-gray-500 py-12">Loading QuickBooks data...</div>
+        ) : !isConnected ? (
+          <div className="text-center py-12">
+            <div className="bg-white rounded-lg shadow-md border border-gray-200 p-8 max-w-md mx-auto">
+              <div className="text-gray-600 mb-6">
+                <p className="text-lg mb-2">Not connected to QuickBooks</p>
+                <p className="text-sm">Connect your QuickBooks account to view customers, invoices, and payments.</p>
+              </div>
+              <button
+                onClick={handleConnect}
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200"
+              >
+                Connect to QuickBooks
+              </button>
+            </div>
+          </div>
         ) : error ? (
           <div className="text-center text-red-600 py-12">{error}</div>
         ) : (

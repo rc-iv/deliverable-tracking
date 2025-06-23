@@ -2,32 +2,46 @@
 
 import { useState, useEffect } from 'react';
 import { getDealInvoiceLinking, formatInvoiceStatus } from '@/lib/pipedrive/invoiceLinking';
+import { InvoiceCreationForm } from './InvoiceCreationForm';
 
 interface InvoiceLinkingSectionProps {
   deal: any;
+  onRefresh?: () => void;
 }
 
-export function InvoiceLinkingSection({ deal }: InvoiceLinkingSectionProps) {
+export function InvoiceLinkingSection({ deal, onRefresh }: InvoiceLinkingSectionProps) {
   const [linkingData, setLinkingData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [showCreateForm, setShowCreateForm] = useState(false);
+
+  const fetchLinkingData = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      const data = await getDealInvoiceLinking(deal);
+      setLinkingData(data);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to load invoice data');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const fetchLinkingData = async () => {
-      try {
-        setLoading(true);
-        setError(null);
-        const data = await getDealInvoiceLinking(deal);
-        setLinkingData(data);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : 'Failed to load invoice data');
-      } finally {
-        setLoading(false);
-      }
-    };
-
     fetchLinkingData();
   }, [deal]);
+
+  const handleInvoiceCreated = async (invoiceData: any) => {
+    // Refresh the linking data to show the new invoice
+    await fetchLinkingData();
+    setShowCreateForm(false);
+    
+    // Call parent refresh if provided
+    if (onRefresh) {
+      onRefresh();
+    }
+  };
 
   if (loading) {
     return (
@@ -63,6 +77,30 @@ export function InvoiceLinkingSection({ deal }: InvoiceLinkingSectionProps) {
   }
 
   const { linkingInfo, linkedInvoice } = linkingData;
+
+  // Show invoice creation form if requested
+  if (showCreateForm) {
+    return (
+      <div className="space-y-4">
+        <div className="flex items-center justify-between">
+          <h2 className="text-xl font-semibold text-gray-900">Create Invoice from Deal</h2>
+          <button
+            onClick={() => setShowCreateForm(false)}
+            className="text-gray-500 hover:text-gray-700"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        <InvoiceCreationForm 
+          deal={deal} 
+          onInvoiceCreated={handleInvoiceCreated}
+          onCancel={() => setShowCreateForm(false)}
+        />
+      </div>
+    );
+  }
 
   return (
     <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
@@ -181,17 +219,35 @@ export function InvoiceLinkingSection({ deal }: InvoiceLinkingSectionProps) {
           </div>
         )}
 
-        {/* Create Invoice Button */}
-        {!linkingInfo.hasInvoiceNumber && (
-          <div className="flex flex-col sm:flex-row sm:items-center gap-2 py-2">
-            <dt className="text-sm font-medium text-gray-500 sm:w-1/3">Actions</dt>
-            <dd className="text-sm sm:w-2/3">
-              <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
-                Create Invoice from Deal
+        {/* Actions */}
+        <div className="flex flex-col sm:flex-row sm:items-center gap-2 py-2">
+          <dt className="text-sm font-medium text-gray-500 sm:w-1/3">Actions</dt>
+          <dd className="text-sm sm:w-2/3">
+            <div className="flex gap-2">
+              {!linkingInfo.hasInvoiceNumber ? (
+                <button 
+                  onClick={() => setShowCreateForm(true)}
+                  className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+                >
+                  Create Invoice from Deal
+                </button>
+              ) : (
+                <button 
+                  onClick={() => setShowCreateForm(true)}
+                  className="bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors"
+                >
+                  Create New Invoice
+                </button>
+              )}
+              <button 
+                onClick={fetchLinkingData}
+                className="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 transition-colors"
+              >
+                Refresh
               </button>
-            </dd>
-          </div>
-        )}
+            </div>
+          </dd>
+        </div>
       </dl>
     </div>
   );

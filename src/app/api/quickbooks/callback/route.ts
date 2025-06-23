@@ -79,21 +79,18 @@ export async function GET(request: NextRequest) {
     // Store tokens securely in the database (upsert by realmId)
     try {
       const expiresAt = new Date(Date.now() + tokens.expires_in * 1000);
-      const refreshExpiresAt = new Date(Date.now() + tokens.x_refresh_token_expires_in * 1000);
       await prisma.quickBooksToken.upsert({
         where: { realmId: tokens.realmId },
         update: {
           accessToken: tokens.access_token,
           refreshToken: tokens.refresh_token,
           expiresAt,
-          refreshExpiresAt,
         },
         create: {
           realmId: tokens.realmId,
           accessToken: tokens.access_token,
           refreshToken: tokens.refresh_token,
           expiresAt,
-          refreshExpiresAt,
         },
       });
       console.log('✅ Tokens stored securely in database for realmId:', tokens.realmId);

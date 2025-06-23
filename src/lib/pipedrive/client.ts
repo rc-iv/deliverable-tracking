@@ -451,31 +451,19 @@ export class PipedriveClient {
     console.log('📝 Update summary:', updateSummary);
     
     try {
-      console.log('⏳ Making PATCH request to Pipedrive API...');
+      console.log('⏳ Making PUT request to Pipedrive API...');
       
-      // Prepare the request body
-      const requestBody = new URLSearchParams();
-      Object.keys(updates).forEach(key => {
-        const value = updates[key];
-        if (value !== null && value !== undefined) {
-          // Handle different value types
-          if (typeof value === 'object') {
-            requestBody.append(key, JSON.stringify(value));
-          } else {
-            requestBody.append(key, String(value));
-          }
-        } else {
-          // Explicitly set null/undefined values
-          requestBody.append(key, '');
-        }
-      });
+      // Use JSON format for the request body (required for custom fields)
+      const requestBody = JSON.stringify(updates);
+      
+      console.log('📦 Request body:', requestBody);
       
       const response = await fetch(url, {
-        method: 'PUT', // Using PUT as per Pipedrive documentation
+        method: 'PUT',
         headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
+          'Content-Type': 'application/json',
         },
-        body: requestBody.toString()
+        body: requestBody
       });
       
       console.log('📊 Response status:', response.status);

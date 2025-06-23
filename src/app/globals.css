@@ -24,3 +24,103 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Form Input Styling - Ensure Readable Text */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="tel"],
+input[type="url"],
+input[type="search"],
+input[type="date"],
+input[type="time"],
+input[type="datetime-local"],
+input[type="month"],
+input[type="week"],
+textarea,
+select {
+  color: #1f2937 !important; /* Dark gray text */
+  background-color: #ffffff !important; /* White background */
+  border: 1px solid #d1d5db !important; /* Light gray border */
+}
+
+/* Focus states */
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="number"]:focus,
+input[type="tel"]:focus,
+input[type="url"]:focus,
+input[type="search"]:focus,
+input[type="date"]:focus,
+input[type="time"]:focus,
+input[type="datetime-local"]:focus,
+input[type="month"]:focus,
+input[type="week"]:focus,
+textarea:focus,
+select:focus {
+  outline: none !important;
+  border-color: #3b82f6 !important; /* Blue border on focus */
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1) !important; /* Blue shadow */
+}
+
+/* Placeholder text */
+input::placeholder,
+textarea::placeholder {
+  color: #6b7280 !important; /* Medium gray placeholder */
+}
+
+/* Disabled state */
+input:disabled,
+textarea:disabled,
+select:disabled {
+  background-color: #f3f4f6 !important; /* Light gray background */
+  color: #9ca3af !important; /* Medium gray text */
+  cursor: not-allowed !important;
+}
+
+/* Ensure dropdown options are readable */
+option {
+  color: #1f2937 !important;
+  background-color: #ffffff !important;
+}
+
+/* Dark mode adjustments */
+@media (prefers-color-scheme: dark) {
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="number"],
+  input[type="tel"],
+  input[type="url"],
+  input[type="search"],
+  input[type="date"],
+  input[type="time"],
+  input[type="datetime-local"],
+  input[type="month"],
+  input[type="week"],
+  textarea,
+  select {
+    color: #f9fafb !important; /* Light gray text */
+    background-color: #374151 !important; /* Dark gray background */
+    border: 1px solid #4b5563 !important; /* Medium gray border */
+  }
+  
+  input::placeholder,
+  textarea::placeholder {
+    color: #9ca3af !important; /* Light gray placeholder */
+  }
+  
+  input:disabled,
+  textarea:disabled,
+  select:disabled {
+    background-color: #1f2937 !important; /* Darker gray background */
+    color: #6b7280 !important; /* Medium gray text */
+  }
+  
+  option {
+    color: #f9fafb !important;
+    background-color: #374151 !important;
+  }
+}
