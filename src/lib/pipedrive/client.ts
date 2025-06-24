@@ -540,4 +540,95 @@ export class PipedriveClient {
       throw error;
     }
   }
+
+  async createNote(dealId: number, content: string): Promise<PipedriveResponse<any>> {
+    const endpoint = '/notes';
+    const params = new URLSearchParams({
+      api_token: this.apiToken
+    });
+    const url = `${this.baseUrl}${endpoint}?${params}`;
+    
+    console.log('📝 Creating note in Pipedrive...');
+    console.log('📡 Request URL:', `${this.baseUrl}${endpoint}?api_token=***`);
+    console.log('📊 Deal ID:', dealId);
+    console.log('📝 Content length:', content.length, 'characters');
+    
+    try {
+      console.log('⏳ Making POST request to Pipedrive API...');
+      
+      const requestBody = JSON.stringify({
+        content: content,
+        deal_id: dealId
+      });
+      
+      console.log('📦 Request body:', requestBody);
+      
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: requestBody
+      });
+      
+      console.log('📊 Response status:', response.status);
+      console.log('📊 Response status text:', response.statusText);
+      
+      const data = await response.json();
+      console.log('📦 Raw response structure:', {
+        success: data.success,
+        has_data: !!data.data,
+        data_type: data.data ? typeof data.data : 'none'
+      });
+      
+      if (!response.ok) {
+        console.error('❌ API request failed');
+        console.error('❌ Error data:', data);
+        
+        if (response.status === 404) {
+          throw new Error(`Deal with ID ${dealId} not found`);
+        }
+        
+        if (response.status === 400) {
+          throw new Error(`Invalid note data: ${data.error || 'Bad request'}`);
+        }
+        
+        if (response.status === 403) {
+          throw new Error(`Permission denied: Cannot create note for deal ${dealId}`);
+        }
+        
+        throw new Error(data.error || `HTTP ${response.status}: ${response.statusText}`);
+      }
+      
+      const note = data.data;
+      
+      if (!note) {
+        console.error('❌ No note data returned after creation');
+        throw new Error(`Failed to create note for deal with ID ${dealId}`);
+      }
+      
+      console.log('✅ Note created successfully');
+      console.log('📈 Created note summary:', {
+        id: note.id,
+        content_length: note.content?.length || 0,
+        deal_id: note.deal_id,
+        add_time: note.add_time
+      });
+      
+      return {
+        success: true,
+        data: note,
+        additional_data: data.additional_data
+      };
+    } catch (error) {
+      console.error('💥 Note creation failed');
+      console.error('💥 Error details:', error);
+      
+      if (error instanceof TypeError && error.message.includes('fetch')) {
+        console.error('🌐 Network error - check internet connection');
+      }
+      
+      throw error;
+    }
+  }
 } 

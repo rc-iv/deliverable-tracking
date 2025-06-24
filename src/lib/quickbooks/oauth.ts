@@ -22,8 +22,7 @@ export class QuickBooksOAuth {
       clientId: this.config.clientId,
       clientSecret: this.config.clientSecret,
       environment: this.config.environment,
-      redirectUri: this.config.redirectUri,
-      logging: process.env.NODE_ENV === 'development'
+      redirectUri: this.config.redirectUri
     });
     
     console.log('✅ QuickBooks OAuth client initialized');

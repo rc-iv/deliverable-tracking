@@ -30,6 +30,11 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
+# OAuth and API logs (may contain secrets)
+oauthclient-log.log*
+*.log
+logs/
+
 # env files (can opt-in for committing if needed)
 .env*
 

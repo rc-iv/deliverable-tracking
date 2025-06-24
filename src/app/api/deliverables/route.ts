@@ -30,6 +30,8 @@ export async function GET(request: NextRequest) {
       ]
     });
 
+    console.log('API /api/deliverables returning:', JSON.stringify(deliverables, null, 2));
+
     return NextResponse.json(deliverables);
   } catch (error) {
     console.error('Error fetching deliverables:', error);

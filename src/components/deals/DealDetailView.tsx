@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { Deal } from '@/lib/pipedrive/types';
 import { EditableField, FieldValidation } from './EditableField';
 import { InvoiceLinkingSection } from './InvoiceLinkingSection';
+import { ProposalList } from './ProposalList';
 
 interface FormattedCustomField {
   key: string;
@@ -377,6 +378,9 @@ export function DealDetailView({ deal, onRefresh, onEdit, onSave }: DealDetailVi
 
   const isAnyEditing = Object.values(editingSections).some(Boolean);
 
+  // Button to create a proposal for this deal
+  const createProposalUrl = `/proposals/new?dealId=${deal.id}`;
+
   return (
     <div className="space-y-6">
       {/* Success Banner */}
@@ -611,6 +615,9 @@ export function DealDetailView({ deal, onRefresh, onEdit, onSave }: DealDetailVi
       {/* Invoice Linking Section */}
       <InvoiceLinkingSection deal={deal} onRefresh={onRefresh} />
 
+      {/* Proposals Section */}
+      <ProposalList dealId={deal.id} />
+
       {/* Timeline Information */}
       <CollapsibleSection 
         title="Timeline Information" 
@@ -811,6 +818,16 @@ export function DealDetailView({ deal, onRefresh, onEdit, onSave }: DealDetailVi
           </div>
         </div>
       )}
+
+      {/* Button to create a proposal for this deal */}
+      <div className="flex justify-end mb-4">
+        <Link
+          href={createProposalUrl}
+          className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-semibold shadow-sm transition-colors"
+        >
+          Create Proposal
+        </Link>
+      </div>
     </div>
   );
 } 
