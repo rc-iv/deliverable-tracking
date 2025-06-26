@@ -50,7 +50,13 @@ function TaskCard({ task, onClick }: { task: AsanaTask; onClick: () => void }) {
     }
   };
 
-  const isOverdue = task.due_on && new Date(task.due_on) < new Date();
+  const isOverdue = task.due_on && !task.completed && (() => {
+    const [year, month, day] = task.due_on.split('-').map(Number);
+    const dueDate = new Date(year, month - 1, day);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    return dueDate < today;
+  })();
 
   return (
     <div 
@@ -114,6 +120,8 @@ function TaskCard({ task, onClick }: { task: AsanaTask; onClick: () => void }) {
 const WORKSPACE_ID = '1201557518707781';
 const PROJECT_ID = '1206197443983749';
 
+type TabType = 'overdue' | 'scheduled' | 'blocked' | 'unscheduled';
+
 export default function AsanaPage() {
   const router = useRouter();
   const [tasks, setTasks] = useState<AsanaTask[]>([]);
@@ -121,6 +129,7 @@ export default function AsanaPage() {
   const [error, setError] = useState<string | null>(null);
   const [isConnected, setIsConnected] = useState(false);
   const [projectName, setProjectName] = useState('Sponsorship Fulfillment');
+  const [activeTab, setActiveTab] = useState<TabType>('overdue');
 
   const fetchTasks = async () => {
     try {
@@ -183,6 +192,65 @@ export default function AsanaPage() {
     window.location.href = '/api/asana/auth';
   };
 
+  // Enhanced overdue logic with date-only parsing
+  const isTaskOverdue = (task: AsanaTask): boolean => {
+    if (!task.due_on || task.completed) return false;
+    
+    // Parse as date-only to avoid timezone issues
+    const [year, month, day] = task.due_on.split('-').map(Number);
+    const dueDate = new Date(year, month - 1, day);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0); // Start of today
+    
+    return dueDate < today;
+  };
+
+  // Check if task is blocked based on custom fields
+  const isTaskBlocked = (task: AsanaTask): boolean => {
+    if (!task.custom_fields) return false;
+    
+    return task.custom_fields.some(field => 
+      field.name && 
+      field.name.toLowerCase().includes('status') && 
+      (field.text_value === 'Blocked' || 
+       field.enum_value?.name === 'Blocked' ||
+       (typeof field.text_value === 'string' && field.text_value.toLowerCase().includes('blocked')) ||
+       (field.enum_value?.name && field.enum_value.name.toLowerCase().includes('blocked')))
+    );
+  };
+
+  // Task filtering and sorting logic
+  const categorizedTasks = {
+    overdue: tasks
+      .filter(task => isTaskOverdue(task))
+      .sort((a, b) => {
+        // Sort by due date, oldest first
+        if (!a.due_on || !b.due_on) return 0;
+        return new Date(a.due_on).getTime() - new Date(b.due_on).getTime();
+      }),
+    scheduled: tasks
+      .filter(task => task.due_on && !task.completed && !isTaskOverdue(task))
+      .sort((a, b) => {
+        // Sort by due date, oldest first
+        if (!a.due_on || !b.due_on) return 0;
+        return new Date(a.due_on).getTime() - new Date(b.due_on).getTime();
+      }),
+    blocked: tasks
+      .filter(task => !task.due_on && !task.completed && isTaskBlocked(task))
+      .sort((a, b) => {
+        // Sort by creation date, newest first
+        return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+      }),
+    unscheduled: tasks
+      .filter(task => !task.due_on && !task.completed && !isTaskBlocked(task))
+      .sort((a, b) => {
+        // Sort by creation date, newest first
+        return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+      })
+  };
+
+  const currentTasks = categorizedTasks[activeTab];
+
   return (
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-6xl mx-auto px-4">
@@ -236,6 +304,82 @@ export default function AsanaPage() {
               </p>
             </div>
 
+            {/* Tab Navigation */}
+            <div className="bg-white rounded-lg shadow-sm border border-gray-200 mb-8">
+              <div className="border-b border-gray-200">
+                <nav className="-mb-px flex">
+                  <button
+                    onClick={() => setActiveTab('overdue')}
+                    className={`py-4 px-6 border-b-2 font-medium text-sm transition-colors ${
+                      activeTab === 'overdue'
+                        ? 'border-red-500 text-red-600 bg-red-50'
+                        : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                    }`}
+                  >
+                    <div className="flex items-center gap-2">
+                      <span>Overdue</span>
+                      {categorizedTasks.overdue.length > 0 && (
+                        <span className="bg-red-100 text-red-800 text-xs font-medium px-2 py-1 rounded-full">
+                          {categorizedTasks.overdue.length}
+                        </span>
+                      )}
+                    </div>
+                  </button>
+                  <button
+                    onClick={() => setActiveTab('scheduled')}
+                    className={`py-4 px-6 border-b-2 font-medium text-sm transition-colors ${
+                      activeTab === 'scheduled'
+                        ? 'border-blue-500 text-blue-600 bg-blue-50'
+                        : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                    }`}
+                  >
+                    <div className="flex items-center gap-2">
+                      <span>Scheduled</span>
+                      {categorizedTasks.scheduled.length > 0 && (
+                        <span className="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-1 rounded-full">
+                          {categorizedTasks.scheduled.length}
+                        </span>
+                      )}
+                    </div>
+                  </button>
+                  <button
+                    onClick={() => setActiveTab('blocked')}
+                    className={`py-4 px-6 border-b-2 font-medium text-sm transition-colors ${
+                      activeTab === 'blocked'
+                        ? 'border-orange-500 text-orange-600 bg-orange-50'
+                        : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                    }`}
+                  >
+                    <div className="flex items-center gap-2">
+                      <span>Blocked</span>
+                      {categorizedTasks.blocked.length > 0 && (
+                        <span className="bg-orange-100 text-orange-800 text-xs font-medium px-2 py-1 rounded-full">
+                          {categorizedTasks.blocked.length}
+                        </span>
+                      )}
+                    </div>
+                  </button>
+                  <button
+                    onClick={() => setActiveTab('unscheduled')}
+                    className={`py-4 px-6 border-b-2 font-medium text-sm transition-colors ${
+                      activeTab === 'unscheduled'
+                        ? 'border-gray-500 text-gray-600 bg-gray-50'
+                        : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                    }`}
+                  >
+                    <div className="flex items-center gap-2">
+                      <span>Unscheduled</span>
+                      {categorizedTasks.unscheduled.length > 0 && (
+                        <span className="bg-gray-100 text-gray-800 text-xs font-medium px-2 py-1 rounded-full">
+                          {categorizedTasks.unscheduled.length}
+                        </span>
+                      )}
+                    </div>
+                  </button>
+                </nav>
+              </div>
+            </div>
+
             {/* Tasks Grid */}
             {tasks.length === 0 ? (
               <div className="text-center py-12">
@@ -253,9 +397,24 @@ export default function AsanaPage() {
                   Refresh tasks
                 </button>
               </div>
+            ) : currentTasks.length === 0 ? (
+              <div className="text-center py-12">
+                <svg className="mx-auto h-12 w-12 text-gray-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <h3 className="text-lg font-medium text-gray-900 mb-2">
+                  No {activeTab} tasks
+                </h3>
+                <p className="text-gray-500">
+                  {activeTab === 'overdue' && "Great! No tasks are overdue."}
+                  {activeTab === 'scheduled' && "No tasks have upcoming due dates."}
+                  {activeTab === 'blocked' && "No tasks are currently blocked."}
+                  {activeTab === 'unscheduled' && "No unscheduled tasks."}
+                </p>
+              </div>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {tasks.map((task) => (
+                {currentTasks.map((task) => (
                   <TaskCard 
                     key={task.gid} 
                     task={task} 

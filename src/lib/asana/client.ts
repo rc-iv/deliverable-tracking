@@ -93,13 +93,17 @@ export class AsanaClient {
     return this.makeRequest<AsanaProject[]>(`/projects?workspace=${workspaceGid}&opt_fields=name,archived,completed,current_status,due_date,due_on,public`);
   }
 
+  async getWorkspaceUsers(workspaceGid: string): Promise<AsanaUser[]> {
+    return this.makeRequest<AsanaUser[]>(`/workspaces/${workspaceGid}/users?opt_fields=name,email,photo`);
+  }
+
   async getTasks(projectGid?: string, workspaceGid?: string, options?: {
     assignee?: string;
     completed_since?: string;
     modified_since?: string;
     limit?: number;
   }): Promise<AsanaTask[]> {
-    let endpoint = '/tasks?opt_fields=name,assignee,assignee_status,completed,completed_at,created_at,due_at,due_on,modified_at,notes,projects,tags,custom_fields';
+    let endpoint = '/tasks?opt_fields=name,assignee.name,assignee.email,assignee.photo,assignee_status,completed,completed_at,created_at,due_at,due_on,modified_at,notes,projects,tags,custom_fields';
     
     const params = new URLSearchParams();
     
@@ -169,6 +173,6 @@ export class AsanaClient {
   }
 
   async getTask(taskGid: string): Promise<AsanaTask> {
-    return this.makeRequest<AsanaTask>(`/tasks/${taskGid}?opt_fields=name,assignee,assignee_status,completed,completed_at,created_at,due_at,due_on,modified_at,notes,projects,tags,custom_fields`);
+    return this.makeRequest<AsanaTask>(`/tasks/${taskGid}?opt_fields=name,assignee.name,assignee.email,assignee.photo,assignee_status,completed,completed_at,created_at,due_at,due_on,modified_at,notes,projects,tags,custom_fields`);
   }
 } 
